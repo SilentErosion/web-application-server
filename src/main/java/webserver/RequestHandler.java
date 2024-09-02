@@ -1,11 +1,9 @@
 package webserver;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -36,13 +34,6 @@ public class RequestHandler extends Thread {
 			DataOutputStream dos = new DataOutputStream(out);
 			response200Header(dos, body.length);
 			responseBody(dos, body);
-			
-			// 다 읽어야 하는 경우
-			/*
-			 * while (!"".equals()) {
-			 * 
-			 * content.append(line); content.append(System.lineSeparator()); }
-			 */
 
 			// Show HelloWorld
 			/*DataOutputStream dos = new DataOutputStream(out);

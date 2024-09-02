@@ -22,6 +22,12 @@ public class HttpRequestUtils {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		// StringBuilder content = new StringBuilder();
 		String line = reader.readLine();
+		// 다 읽어야 하는 경우
+					/*
+					 * while (!"".equals(line)) {
+					 * 
+					 * content.append(line); content.append(System.lineSeparator()); }
+					 */
 		if (line == null) return "";
 		String url = line.split(" ")[1];
 		return url;
