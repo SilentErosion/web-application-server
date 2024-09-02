@@ -13,9 +13,11 @@ import java.nio.file.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import util.HttpRequestUtils;
+
 public class RequestHandler extends Thread {
 	private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
-
+	private static final String SOURCE_DIR = "./webapp";
 	private Socket connection;
 
 	public RequestHandler(Socket connectionSocket) {
@@ -28,16 +30,8 @@ public class RequestHandler extends Thread {
 
 		try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
 			// TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			StringBuilder content = new StringBuilder();
-			String line;
-
-			line = reader.readLine();
-			if (line == null)
-				return;
-			String url = line.split(" ")[1];
-			String filepath = "./webapp" + url;
+			String url = HttpRequestUtils.getRequestedUrl(in);
+			String filepath = SOURCE_DIR + url;
 			byte[] body = Files.readAllBytes(new File(filepath).toPath());
 			DataOutputStream dos = new DataOutputStream(out);
 			response200Header(dos, body.length);

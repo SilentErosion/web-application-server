@@ -1,5 +1,9 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,6 +17,16 @@ public class HttpRequestUtils {
      *            URL에서 ? 이후에 전달되는 field1=value1&field2=value2 형식임
      * @return
      */
+	// 어차피 파싱할 거라면 전체를 한 번에 하는 게 더 나을 듯하나 일단은 불필요
+	public static String getRequestedUrl(InputStream in) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		// StringBuilder content = new StringBuilder();
+		String line = reader.readLine();
+		if (line == null) return "";
+		String url = line.split(" ")[1];
+		return url;
+	}
+	
     public static Map<String, String> parseQueryString(String queryString) {
         return parseValues(queryString, "&");
     }
