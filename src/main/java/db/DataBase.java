@@ -21,4 +21,12 @@ public class DataBase {
     public static Collection<User> findAll() {
         return users.values();
     }
+    
+    public static void printAll() {
+    	StringBuilder sb = new StringBuilder();
+		for(User user : users.values()) {
+			sb.append(user.toString());
+			sb.append("\r\n");
+		}
+    }
 }

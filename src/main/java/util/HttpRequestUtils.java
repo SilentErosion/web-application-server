@@ -18,6 +18,7 @@ public class HttpRequestUtils {
      * @return
      */
 	// 어차피 파싱할 거라면 전체를 한 번에 하는 게 더 나을 듯하나 일단은 불필요
+	// 객체로 나누는 게 나을 듯
 	public static String getRequestedUrl(InputStream in) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		// StringBuilder content = new StringBuilder();
