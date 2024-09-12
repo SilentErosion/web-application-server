@@ -22,11 +22,12 @@ public class DataBase {
         return users.values();
     }
     
-    public static void printAll() {
-    	StringBuilder sb = new StringBuilder();
-		for(User user : users.values()) {
-			sb.append(user.toString());
-			sb.append("\r\n");
-		}
-    }
+//    public static void printAll() {
+//    	StringBuilder sb = new StringBuilder();
+//		for(User user : users.values()) {
+//			sb.append(user.toString());
+//			sb.append("\r\n");
+//			System.out.println(sb.toString());
+//		}
+//    }
 }

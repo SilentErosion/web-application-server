@@ -19,7 +19,8 @@ import model.User;
 import util.HttpRequestUtils.Pair;
 
 public class HTTPRequest {
-	private String requestedUrl = null;;
+	private String queryString = null;;
+	private String path = null;
 	private String method = null;;
 	private String body = null;
 	private Map<String, String> headers = Maps.newHashMap();
@@ -32,7 +33,13 @@ public class HTTPRequest {
 		}
 		String tokens[] = line.split(" ");
 		this.method = tokens[0];
-		this.requestedUrl = tokens[1];
+		String requestedUrl = tokens[1];
+		System.out.println(requestedUrl);
+		String tokens2[] = requestedUrl.split("\\?");
+		this.path = tokens2[0];
+		if(tokens2.length == 2) 
+			this.queryString = tokens2[1];
+		
 		line = reader.readLine();
 		while (line != null && !"".equals(line)) {
 			Pair pair = HttpRequestUtils.parseHeader(line);
@@ -47,7 +54,7 @@ public class HTTPRequest {
 	}
 	
 	// Constructor for testing
-	public HTTPRequest(String in) throws IOException, IllegalArgumentException {
+	/*public HTTPRequest(String in) throws IOException, IllegalArgumentException {
 		BufferedReader reader = new BufferedReader(new StringReader(in));
 		String line = reader.readLine();
 		if(line == null) {
@@ -66,7 +73,7 @@ public class HTTPRequest {
 		int contentLength = contentLengthString == null ?
 				0 : Integer.parseInt(contentLengthString);
 		body = IOUtils.readData(reader, contentLength);
-	}
+	}*/
 
 	// Getters
 	public Map<String, String> getCookies() {
@@ -77,8 +84,8 @@ public class HTTPRequest {
 		return this.headers.get(key);
 	}
 
-	public String getUrl() {
-		return requestedUrl;
+	public String getPath() {
+		return this.path;
 	}
 
 	public String getMethod() {
@@ -89,9 +96,13 @@ public class HTTPRequest {
 		return body;
 	}
 	
+	public String getQueryString( ) {
+		return this.queryString;
+	}
+	
 	// For debug
-	/*void printHeaders() {
-		final Logger logger = LoggerFactory.getLogger(IOUtilsTest.class);
+	void printHeaders() {
+		final Logger logger = LoggerFactory.getLogger(HTTPRequest.class);
 		
 		Set<String> keys = headers.keySet();
 		Iterator<String> iterator = keys.iterator();
@@ -100,5 +111,5 @@ public class HTTPRequest {
 	    	String key = iterator.next();
 	    	logger.debug(key + ": " + headers.get(key));
 	    }
-	}*/
+	}
 }

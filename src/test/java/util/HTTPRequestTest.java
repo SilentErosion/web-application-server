@@ -2,6 +2,7 @@ package util;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Test;
@@ -21,9 +22,9 @@ public class HTTPRequestTest {
 	
 	@Test
 	public void printHeaders() throws IllegalArgumentException, IOException {
-		HTTPRequest req = new HTTPRequest(postCreate);
-		/*req.printHeaders();
-		System.out.println(req.getBody());*/
+		HTTPRequest req = new HTTPRequest(new ByteArrayInputStream(postCreate.getBytes()));
+		req.printHeaders();
+		System.out.println(req.getBody());
 	}
 	
 
